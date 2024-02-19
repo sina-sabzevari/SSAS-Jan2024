@@ -1,0 +1,63 @@
+﻿EVALUATE
+{
+10+20,
+"10"+20,
+"10" & 20,
+Date(2020,01,01)+1,
+Value(Date(1900,1,5))*2,
+Date(1900,1,5)*2,
+Date(1900,1,5)&2
+}
+
+EVALUATE
+{3^3,POWER(3,3)}
+
+EVALUATE
+{12/5,DIVIDE(10,0,12),40/0,0/0,1/0/2/0}
+
+EVALUATE
+{Mod(12,5)}
+
+EVALUATE
+{
+BLANK()=0,
+BLANK()==0,
+BLANK()="",
+BLANK()=="",
+BLANK()=Date(1899,12,30),
+"sina"="SINA",
+"sina"=="SINA",
+EXACT("sina","SINA")
+}
+
+EVALUATE
+{
+10+BLANK(),
+"sina"&BLANK(),
+FALSE()=BLANK()
+}
+
+
+EVALUATE
+{
+FALSE() || (TRUE() && FALSE)
+}
+
+EVALUATE
+{
+NOT(OR(AND(FALSE(),True()),FALSE()))
+}
+
+
+EVALUATE
+FILTER('Product','Product'[Color]="red" || 'Product'[Color]="blue" || 'Product'[Color]="brown")
+
+
+EVALUATE
+Filter('Product','Product'[Color] in {"red","blue","brown"})
+
+
+EVALUATE
+{
+NOT({"brown"} in {"blue","red"})
+}

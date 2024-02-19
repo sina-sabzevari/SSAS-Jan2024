@@ -1,0 +1,9 @@
+﻿EVALUATE
+{
+SUMX(Sales,Sales[Quantity]*Sales[Unit Price])
+}
+
+EVALUATE
+ADDCOLUMNS(
+VALUES('Product'[Color]),
+"Sales Amount",CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price])))

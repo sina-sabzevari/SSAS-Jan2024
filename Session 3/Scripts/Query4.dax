@@ -1,0 +1,22 @@
+﻿Define
+VAR _a=1
+VAR _b=3
+MEASURE Sales[Salesss]=SUMX(Sales,[Quantity])
+Column Sales[Salesss Amount]=Sales[Quantity]*Sales[Unit Price]
+Table Salam={1}
+
+
+//EVALUATE
+//{_a*2}
+//
+//EVALUATE
+//{_b*3}
+//
+//EVALUATE
+//{Sales[Salesss]}
+//
+//EVALUATE
+//Sales
+
+EVALUATE
+Salam

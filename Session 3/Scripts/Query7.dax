@@ -1,0 +1,23 @@
+﻿EVALUATE
+Store
+
+EVALUATE
+SELECTCOLUMNS(Store,"StoreKey",Store[StoreKey],"Full Name",Store[Name],"Concat Column",[Country] & " " &[State],
+"concat 2 ",CONCATENATE(CONCATENATE([Country], " "),[State])
+)
+
+EVALUATE
+VAR _table=FILTER(Store,[Country]="Australia")
+Return
+SELECTCOLUMNS(_table,"StoreKey",[StoreKey],"Full Name",[Name],"Concat Column",[Country] & " " &[State])
+
+
+
+EVALUATE
+ADDCOLUMNS(Store,"Concat Columns",[Country] & " " &[State])
+
+
+
+
+
+

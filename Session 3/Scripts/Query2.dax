@@ -1,0 +1,29 @@
+﻿EVALUATE
+{
+4--
+*4
+*3}
+
+
+EVALUATE
+VAR _tedad_course=4
+VAR _tedad_ostad=4
+VAR _book=3
+RETURN
+_tedad_course*_tedad_ostad*_book
+
+
+EVALUATE
+{
+DIVIDE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),SUM(Sales[Quantity]))
+}
+
+
+EVALUATE
+VAR _Sales_amount=SUMX(Sales,Sales[Quantity]*Sales[Unit Price])
+VAR _Sales_quantity=SUM(Sales[Quantity])
+VAR _result=DIVIDE(_Sales_amount,_Sales_quantity)
+Return 
+{_result}
+
+

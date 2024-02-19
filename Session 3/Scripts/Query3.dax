@@ -1,0 +1,17 @@
+﻿EVALUATE
+
+VAR _b=
+		VAR _one=_a*1
+		VAR _two=_one*2
+		Return _two
+VAR _a=1
+Return {_b}	
+
+
+EVALUATE
+VAR _a=
+		VAR _one=1
+		VAR _two=2*_one
+		RETURN _two
+VAR _b=_two*3
+Return {_b}

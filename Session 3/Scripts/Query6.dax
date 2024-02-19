@@ -1,0 +1,22 @@
+﻿EVALUATE
+ 
+FILTER('Product','Product'[Color]="red" &&'Product'[Brand]="contoso")
+
+
+EVALUATE
+FILTER(
+	FILTER('Product','Product'[color]="red"),
+	'Product'[Brand]="contoso")
+	
+EVALUATE
+FILTER(
+	FILTER('Product',[Brand]="contoso"),
+	[Color]="red")
+		
+	
+	
+EVALUATE
+VAR _red_product=FILTER('Product','Product'[color]="red")
+VAR _red_contoso_product=FILTER(_red_product,[Brand]="Contoso")
+Return 
+_red_contoso_product

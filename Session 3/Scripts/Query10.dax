@@ -1,0 +1,19 @@
+﻿Define
+MEASURE Sales[Sales Amount2]=SUMX(Sales,Sales[Quantity]*Sales[Unit Price])
+
+//EVALUATE
+//ADDCOLUMNS(
+//VALUES('Product'[Color]),
+//"Sales Amount",CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]))
+////"Sales Amount2",SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),
+////"Sales Amount3",Sales[Sales Amount2]
+//)
+
+
+EVALUATE
+ADDCOLUMNS(
+VALUES('Product'[Color]),
+//"Sales Amount",CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price])),
+//"Sales Amount2",SUMX(RELATEDTABLE(Sales),Sales[Quantity]*Sales[Unit Price])
+//"Sales Amount3",Sales[Sales Amount2]
+)

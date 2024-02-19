@@ -1,0 +1,40 @@
+﻿//EVALUATE
+//Store
+
+EVALUATE
+VALUES(Continent[Continent])
+
+EVALUATE
+DISTINCT(Continent[Continent])
+
+EVALUATE
+SUMMARIZE(Customer,
+
+[Continent],[Country],"Concat",[Continent] &" "&[Country])
+
+
+EVALUATE
+ADDCOLUMNS(
+SUMMARIZE(Customer,[Continent],[Country])
+,"Concat",[Continent] &" "&[Country])
+
+
+EVALUATE
+VAR _table=Store
+Return
+--_table
+--VALUES(_table[Name])
+SUMMARIZE(_table,[Name])
+
+
+EVALUATE
+VALUES('Customer'[gender])
+
+EVALUATE
+union(
+Row("Gender","Female"),
+Row("Gender","Male"))
+
+
+Data Lineage
+

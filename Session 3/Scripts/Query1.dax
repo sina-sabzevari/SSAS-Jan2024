@@ -1,0 +1,16 @@
+﻿EVALUATE {(1,2,3),(4,5,6)}
+
+EVALUATE {SUM(Sales[Quantity])}
+
+EVALUATE 
+DATATABLE("Id",INTEGER,"Name",STRING,
+{
+{1,"ali"},
+{2,"maryam"}
+})
+
+EVALUATE
+union(
+ROW("Id",1,"Name","ali"),
+ROW("Id",2,"Name","Maryam")
+)
