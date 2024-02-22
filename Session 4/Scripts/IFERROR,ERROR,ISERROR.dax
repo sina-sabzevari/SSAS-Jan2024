@@ -1,0 +1,7 @@
+﻿DEFINE
+VAR _number=-10
+
+EVALUATE
+{IFERROR(SQRT(_number),0),IF(_number<0,0,SQRT(_number))
+//,ERROR("in khatast")
+,ISERROR(SQRT(_number))}

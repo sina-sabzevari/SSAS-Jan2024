@@ -1,0 +1,49 @@
+﻿EVALUATE
+{
+CALCULATE(1)
+}
+
+
+EVALUATE
+CALCULATETABLE(TOPN(5,'Product'))
+
+
+EVALUATE
+{CALCULATE(
+CALCULATE([Sales Amount],filter('Product',[Color]="red")),'Product'[Color]="blue")
+}
+
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],Filter(All('Product'),[color]="red")),'Product'[Color]="blue")
+}
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],'Product'[Color]="red"),'Product'[Color]="blue")
+}
+
+
+
+EVALUATE
+{CALCULATE(
+CALCULATE([Sales Amount],REMOVEFILTERS('Product')),'Product'[Color]="blue")
+}
+
+EVALUATE
+{[Sales Amount]}
+
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],KEEPFILTERS('Product'[Color] in {"red","green"})),'Product'[Color]="blue")
+}
+
+EVALUATE
+{
+CALCULATE([Sales Amount],'Product'[Color]="blue")
+}

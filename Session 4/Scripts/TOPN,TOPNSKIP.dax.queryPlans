@@ -1,0 +1,106 @@
+{
+  "FileFormatVersion": 3,
+  "PhysicalQueryPlanRows": [
+    {
+      "Records": null,
+      "Operation": "PartitionIntoGroups: IterPhyOp LogOp=TopN IterCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category]) #Groups=1 #Rows=11",
+      "IndentedOperation": "PartitionIntoGroups: IterPhyOp LogOp=TopN IterCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category]) #Groups=1 #Rows=11",
+      "Level": 0,
+      "RowNumber": 1,
+      "NextSiblingRowNumber": 8,
+      "HighlightRow": false
+    },
+    {
+      "Records": 1,
+      "Operation": "AggregationSpool<Top>: SpoolPhyOp #Records=1",
+      "IndentedOperation": "    AggregationSpool<Top>: SpoolPhyOp #Records=1",
+      "Level": 1,
+      "RowNumber": 2,
+      "NextSiblingRowNumber": 8,
+      "HighlightRow": false
+    },
+    {
+      "Records": 2517,
+      "Operation": "Spool_Iterator<SpoolIterator>: IterPhyOp LogOp=Scan_Vertipaq IterCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category]) #Records=2517 #KeyCols=55 #ValueCols=0",
+      "IndentedOperation": "        Spool_Iterator<SpoolIterator>: IterPhyOp LogOp=Scan_Vertipaq IterCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category]) #Records=2517 #KeyCols=55 #ValueCols=0",
+      "Level": 2,
+      "RowNumber": 3,
+      "NextSiblingRowNumber": 6,
+      "HighlightRow": false
+    },
+    {
+      "Records": 2517,
+      "Operation": "ProjectionSpool<ProjectFusion<>>: SpoolPhyOp #Records=2517",
+      "IndentedOperation": "            ProjectionSpool<ProjectFusion<>>: SpoolPhyOp #Records=2517",
+      "Level": 3,
+      "RowNumber": 4,
+      "NextSiblingRowNumber": 6,
+      "HighlightRow": false
+    },
+    {
+      "Records": null,
+      "Operation": "Cache: IterPhyOp #FieldCols=9 #ValueCols=0",
+      "IndentedOperation": "                Cache: IterPhyOp #FieldCols=9 #ValueCols=0",
+      "Level": 4,
+      "RowNumber": 5,
+      "NextSiblingRowNumber": 5,
+      "HighlightRow": true
+    },
+    {
+      "Records": null,
+      "Operation": "ColPosition<'Product'[Product Name]>: LookupPhyOp LogOp=ColPosition<'Product'[Product Name]>ColPosition<'Product'[Product Name]> LookupCols(2)('Product'[Product Name]) String",
+      "IndentedOperation": "        ColPosition<'Product'[Product Name]>: LookupPhyOp LogOp=ColPosition<'Product'[Product Name]>ColPosition<'Product'[Product Name]> LookupCols(2)('Product'[Product Name]) String",
+      "Level": 2,
+      "RowNumber": 6,
+      "NextSiblingRowNumber": 6,
+      "HighlightRow": false
+    },
+    {
+      "Records": null,
+      "Operation": "Constant: LookupPhyOp LogOp=Constant Integer 11",
+      "IndentedOperation": "        Constant: LookupPhyOp LogOp=Constant Integer 11",
+      "Level": 2,
+      "RowNumber": 7,
+      "NextSiblingRowNumber": 8,
+      "HighlightRow": false
+    }
+  ],
+  "LogicalQueryPlanRows": [
+    {
+      "Operation": "TopN: RelLogOp DependOnCols()() 0-8 RequiredCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category])",
+      "IndentedOperation": "TopN: RelLogOp DependOnCols()() 0-8 RequiredCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category])",
+      "Level": 0,
+      "RowNumber": 1,
+      "NextSiblingRowNumber": 5,
+      "HighlightRow": false
+    },
+    {
+      "Operation": "Scan_Vertipaq: RelLogOp DependOnCols()() 0-8 RequiredCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category])",
+      "IndentedOperation": "    Scan_Vertipaq: RelLogOp DependOnCols()() 0-8 RequiredCols(0, 1, 2, 3, 4, 5, 6, 7, 8)('Product'[RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61], 'Product'[ProductKey], 'Product'[Product Name], 'Product'[Brand], 'Product'[Color], 'Product'[Unit Cost], 'Product'[Unit Price], 'Product'[Subcategory], 'Product'[Category])",
+      "Level": 1,
+      "RowNumber": 2,
+      "NextSiblingRowNumber": 2,
+      "HighlightRow": false
+    },
+    {
+      "Operation": "Constant: ScaLogOp DependOnCols()() Integer DominantValue=11",
+      "IndentedOperation": "    Constant: ScaLogOp DependOnCols()() Integer DominantValue=11",
+      "Level": 1,
+      "RowNumber": 3,
+      "NextSiblingRowNumber": 3,
+      "HighlightRow": false
+    },
+    {
+      "Operation": "ColPosition<'Product'[Product Name]>: ScaLogOp DependOnCols(2)('Product'[Product Name]) String DominantValue=NONE",
+      "IndentedOperation": "    ColPosition<'Product'[Product Name]>: ScaLogOp DependOnCols(2)('Product'[Product Name]) String DominantValue=NONE",
+      "Level": 1,
+      "RowNumber": 4,
+      "NextSiblingRowNumber": 5,
+      "HighlightRow": false
+    }
+  ],
+  "ActivityID": "F1973C23-B149-4C1C-BBE5-97CBC4AE3EA9",
+  "CommandText": "EVALUATE\nTOPN(11,'Product','Product'[Product Name], asc)",
+  "Parameters": null,
+  "StartDatetime": "2024-02-22T15:08:45.79+03:30"
+}

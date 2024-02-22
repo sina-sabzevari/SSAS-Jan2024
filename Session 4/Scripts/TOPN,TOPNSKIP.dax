@@ -1,0 +1,14 @@
+﻿EVALUATE
+TOPN(11,'Product','Product'[Product Name], asc)
+ORDER BY [Product Name]
+
+
+EVALUATE
+TOPNSKIP (
+    5,                          -- Rows to return
+    6,                          -- Rows to skip
+    'Product',                  -- Table
+    'Product'[Product Name],    -- Sort order
+    ASC                         -- Sort direction
+)
+ORDER BY [Product Name]

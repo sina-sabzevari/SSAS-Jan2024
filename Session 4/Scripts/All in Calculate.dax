@@ -1,0 +1,51 @@
+﻿EVALUATE
+{CALCULATE([Sales Amount])}
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],ALL('Product'[Color])),'Product'[Color]="red")
+}
+
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],ALL('Product'[Color])),'Product'[Brand]="contoso")
+}
+
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],ALL('Product')),'Product'[Brand]="contoso")
+}
+
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],ALL('Product')),Customer[City]="berlin")
+}
+
+EVALUATE
+{
+CALCULATE(
+CALCULATE([Sales Amount],ALL()),Customer[City]="berlin")
+}
+
+DEFINE
+    MEASURE ColorGroup[product count] =
+        COUNTROWS ( 'product' )
+
+
+EVALUATE
+ADDCOLUMNS (
+    VALUES ( ColorGroup[color] ),
+    "product count", CALCULATE ( COUNTROWS('Product') ),
+    "product count ALL", CALCULATE ( COUNTROWS('Product'),all() ),
+    "product count ALLCROSSFILTER", CALCULATE ( COUNTROWS('Product'),ALLCROSSFILTERED('Product') )
+)
+
+
+

@@ -1,0 +1,45 @@
+﻿DEFINE
+VAR Days        = VALUES ( 'Date'[Day of Week] )
+VAR WeekendDays = { "Saturday", "Sunday" }
+
+EVALUATE
+Days
+
+EVALUATE
+WeekendDays
+
+EVALUATE
+union(Days,WeekendDays)
+
+EVALUATE
+ADDCOLUMNS(
+Days,"Sales Amount",[Sales Amount])
+
+EVALUATE
+ADDCOLUMNS(
+WeekendDays,"Sales Amount",[Sales Amount])
+
+
+EVALUATE
+ADDCOLUMNS(
+union(Days,WeekendDays),"Sales Amount",[Sales Amount])
+
+
+EVALUATE
+ADDCOLUMNS(
+INTERSECT(Days,WeekendDays),"Sales Amount",[Sales Amount])
+
+EVALUATE
+ADDCOLUMNS(
+INTERSECT(WeekendDays,Days),"Sales Amount",[Sales Amount])
+
+
+EVALUATE
+ADDCOLUMNS(
+EXCEPT(Days,WeekendDays),"Sales Amount",[Sales Amount])
+
+
+
+EVALUATE
+ADDCOLUMNS(
+EXCEPT(WeekendDays,Days),"Sales Amount",[Sales Amount])
