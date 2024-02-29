@@ -1,0 +1,11 @@
+﻿Define
+TABLE
+_table=DATATABLE("year",INTEGER,"Inflationrate",Double,
+{
+{1400,1.7},
+{1401,1.6},
+{1402,1.6}
+})
+EVALUATE{
+PRODUCTX(_table,[Inflationrate])
+}

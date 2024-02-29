@@ -1,0 +1,5 @@
+﻿EVALUATE
+{
+MIN(1,1000),
+MIN('Product'[Unit Price])
+}

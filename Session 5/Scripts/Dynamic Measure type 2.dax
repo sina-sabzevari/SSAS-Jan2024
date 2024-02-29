@@ -1,0 +1,18 @@
+﻿EVALUATE
+MyMeasureTable
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+TREATAS({"Sales Quantity"},MyMeasureTable[Name]),
+"Dynamic Measure",
+SWITCH(
+SELECTEDVALUE(MyMeasureTable[Name]),
+"Sales Amount","Sales Amount",
+"Sales Quantity","Sales Quantity",
+"Sales Amount & Sales Quantity")
+
+
+
+

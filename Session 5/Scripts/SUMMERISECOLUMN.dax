@@ -1,0 +1,104 @@
+﻿EVALUATE
+ADDCOLUMNS(
+SUMMARIZE('Product','Product'[Color],'Product'[Category]),
+"Sales Amount",[Sales Amount])
+
+
+EVALUATE
+ADDCOLUMNS(
+SUMMARIZE('Date',[Year],'Date'[Month Number]),
+"sales amount",[Sales Amount])
+ORDER BY [year],[Month Number]
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+'Date'[Month Number],
+"Sales Amount",[Sales Amount]
+)
+ORDER BY [year],[Month Number]
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+'Date'[Month Number],
+FILTER('Date','Date'[Year]=2015),
+Filter('Product','Product'[Color]="red"),
+"Sales Amount",[Sales Amount]
+)
+ORDER BY [year],[Month Number]
+
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('Date'[Year],"IsTotal"),
+TREATAS({2015,2016,2017},'Date'[Year]),
+"Sales Amount",[Sales Amount]
+)
+
+EVALUATE
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('Date'[Year],"IsTotal",'Date'[Month Number],"IsYearTotal"),
+TREATAS({2015,2016,2017},'Date'[Year]),
+"Sales Amount",[Sales Amount]
+)
+ORDER BY [year],[Month Number]
+
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('Date'[Year],"IsMonthTotal"),
+ROLLUPADDISSUBTOTAL('Date'[Month Number],"IsYearTotal"),
+TREATAS({2015,2016,2017},'Date'[Year]),
+"Sales Amount",[Sales Amount]
+)
+ORDER BY [year],[Month Number]
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL(ROLLUPGROUP('Date'[Year],'Date'[Month Number]),"IsTotal"),
+"Sales Amount",[Sales Amount])
+ORDER BY [year],[Month Number]
+
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+'Date'[Month Number],
+"Sales Amount",
+IGNORE([Sales Amount]))
+ORDER BY [year],[Month Number]
+
+
+EVALUATE
+ADDMISSINGITEMS(
+'Date'[Year],
+'Date'[Month Number],
+SUMMARIZECOLUMNS(
+'Date'[Year],
+'Date'[Month Number],
+"Sales Amount",[Sales Amount])
+,'Date'[Year],
+'Date'[Month Number]
+)
+ORDER BY [year],[Month Number]
+
+
+EVALUATE
+ADDMISSINGITEMS(
+'Date'[Year],
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('Date'[Year],"IsTotal"),
+TREATAS({2015,2016,2017},'Date'[Year]),
+"Sales Amount",[Sales Amount]
+),
+ROLLUPISSUBTOTAL('Date'[Year],[IsTotal]))
+
+
+

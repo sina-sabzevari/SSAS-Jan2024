@@ -1,0 +1,71 @@
+﻿//
+//
+//EVALUATE
+//ADDCOLUMNS(
+//VALUES('Product'[Category]),
+//"MAX Price Subcategory in each category",
+//CALCULATE(MAXX(
+//ADDCOLUMNS(
+//SUMMARIZE('Product',[Category],
+//[Subcategory]),
+//"@SalesAmount",[Sales Amount])
+//
+//,[@SalesAmount]))
+//
+//)
+//EVALUATE
+//ADDCOLUMNS(
+//VALUES('Product'[Category]),
+//"MAX Price Subcategory in each category",
+//CALCULATE(
+//MAXX(
+//ADDCOLUMNS(
+//SUMMARIZE('Product',[Category],
+//[Subcategory]),
+//"@SalesAmount",[Sales Amount])
+//,[@SalesAmount]))
+//
+//)
+//
+//
+//EVALUATE
+//Groupby(
+//			ADDCOLUMNS(
+//			SUMMARIZE('Product',[Category],
+//			[Subcategory]),
+//			"@SalesAmount",[Sales Amount]),
+//			'Product'[Category],
+//			"MAX Price Subcategory in each category",
+//			MAXX(CURRENTGROUP(),[@SalesAmount])
+//			)
+			
+			
+			
+Define
+VAr _AverageCustomerSales=AVERAGEX(Customer,[Sales Amount])
+
+EVALUATE
+{
+_AverageCustomerSales
+}
+
+EVALUATE
+GROUPBY(
+SUMMARIZECOLUMNS(
+	Customer[CustomerKey],
+	"Sales Amount",
+	[Sales Amount],
+	"Average Sales Amount",
+	_AverageCustomerSales,
+	"@CustomerCategory",
+	IF([Sales Amount]>_AverageCustomerSales,"Above","Blow")
+	),[@CustomerCategory],
+	"Customer Count",
+	COUNTX(CURRENTGROUP(),1)
+	)
+	
+			
+
+
+
+

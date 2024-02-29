@@ -1,0 +1,23 @@
+﻿EVALUATE
+
+CALCULATETABLE(
+FILTERS('Product'[Category]),
+'Product'[Category]="Audio")
+
+
+EVALUATE
+SUMMARIZE(
+'Product',[Category],[Color])
+ORDER BY [color],[category]
+
+
+EVALUATE
+CALCULATETABLE(
+FILTERS('Product'[Category]),
+'Product'[color]="Azure")
+
+
+EVALUATE
+CALCULATETABLE(
+VALUES('Product'[Category]),
+'Product'[color]="Azure")

@@ -187,6 +187,37 @@
           {
             "name": "Sales Amount Age group",
             "expression": "CALCULATE([Sales Amount],TREATAS(VALUES(AgeGroup[Age]),Customer[Age]))"
+          },
+          {
+            "name": "Dynamic Measure",
+            "expression": [
+              "IF(Countrows(VALUES(MyMeasureTable[Name]))=1,",
+              "IF(VALUES(MyMeasureTable[Name])=\"Sales Amount\",[Sales Amount],[Sales Quantity]),[Sales Amount])"
+            ],
+            "formatString": "#,0"
+          },
+          {
+            "name": "Dynamic Measure Selected Value",
+            "expression": "IF(SELECTEDVALUE(MyMeasureTable[Name],\"Sales Quantity\")=\"Sales Amount\",[Sales Amount],[Sales Quantity])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Sales Amount Dynamic",
+            "expression": "IF(CONTAINS(MyMeasureTable,[Name],\"Sales Amount\"),[Sales Amount],BLANK())"
+          },
+          {
+            "name": "Sales Quantity Dynamic",
+            "expression": "IF(CONTAINS(MyMeasureTable,[Name],\"Sales Quantity\"),[Sales Quantity],BLANK())"
+          },
+          {
+            "name": "Dynamic Title",
+            "expression": [
+              "SWITCH(",
+              "SELECTEDVALUE(MyMeasureTable[Name]),",
+              "\"Sales Amount\",\"Sales Amount\",",
+              "\"Sales Quantity\",\"Sales Quantity\",",
+              "\"Sales Amount & Sales Quantity\")"
+            ]
           }
         ]
       },
@@ -466,6 +497,43 @@
                 "    dbo_ColorGroup = Source{[Schema=\"dbo\",Item=\"ColorGroup\"]}[Data]",
                 "in",
                 "    dbo_ColorGroup"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "MyMeasureTable",
+        "columns": [
+          {
+            "type": "calculatedTableColumn",
+            "name": "Id",
+            "dataType": "int64",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[Id]"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "Name",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[Name]"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CalculatedTable 1",
+            "source": {
+              "type": "calculated",
+              "expression": [
+                "DATATABLE(",
+                "\"Id\",INTEGER,\"Name\",STRING,",
+                "{",
+                "{1,\"Sales Amount\"},",
+                "{2,\"Sales Quantity\"}",
+                "})"
               ]
             }
           }

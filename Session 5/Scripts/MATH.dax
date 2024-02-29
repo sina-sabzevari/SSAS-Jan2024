@@ -1,0 +1,20 @@
+﻿Define
+Table _base=
+ADDCOLUMNS(
+GENERATESERIES(1,100,1),
+"number",RAND()*100
+)
+
+EVALUATE
+ADDCOLUMNS(
+_base,
+//"Floor",FLOOR([number],0.01),
+//"Ceiling",CEILING([number],0.01),
+"Rounddown",ROUNDDOWN([number],2),
+"Roundup",ROUNDUP([number],2),
+//"Trunc",TRUNC([number],2),
+"Round",Round([number],2),
+"Int",INT([number]),
+"MROUND",MROUND([number],10)
+)
+

@@ -1,0 +1,16 @@
+﻿Define
+Table _table={2,4,4,4,5,5,7,9}
+EVALUATE
+{
+//AVERAGE(_table[value]),
+//MEDIAN(_table[value]),
+PERCENTILE.EXC(_table[value],0.75), --K(N+1)   0.75*9==>6.75 member====>6.5
+PERCENTILE.INC(_table[value],0.75)  --K(N-1)+1  0.75*7===>6.25 memeber====>5.5
+}
+
+(7-5)====1              =====0.75*(7-5)*1===>1.5+5=6.5
+?  =====0.75
+
+
+(7-5)====1              =====0.25*(7-5)*1===>0.5+5=5.5
+?  =====0.25

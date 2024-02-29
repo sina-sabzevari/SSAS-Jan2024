@@ -1,0 +1,44 @@
+﻿//DEFINE
+//Table MyMeasureTable=
+//DATATABLE(
+//"Id",INTEGER,"Name",STRING,
+//{
+//{1,"Sales Amount"},
+//{2,"Sales Quatity"}
+//})
+
+EVALUATE
+MyMeasureTable
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+//TREATAS({"Sales Amount"},MyMeasureTable[Name]),
+"My Measure",
+IF(Countrows(VALUES(MyMeasureTable[Name]))=1,
+IF(VALUES(MyMeasureTable[Name])="Sales Amount",[Sales Amount],[Sales Quantity]),[Sales Amount])
+
+)
+
+
+-------------HasOneValue----------------
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+//TREATAS({"Sales Amount"},MyMeasureTable[Name]),
+"My Measure",
+IF(HASONEVALUE(MyMeasureTable[Name]),
+IF(VALUES(MyMeasureTable[Name])="Sales Amount",[Sales Amount],[Sales Quantity]),[Sales Amount])
+
+)
+
+
+
+EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Year],
+//TREATAS({"Sales Amount"},MyMeasureTable[Name]),
+"My Measure",
+IF(SELECTEDVALUE(MyMeasureTable[Name],"Sales Quantity")="Sales Amount",[Sales Amount],[Sales Quantity])
+
+)

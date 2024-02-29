@@ -1,0 +1,10 @@
+﻿EVALUATE
+{
+COUNTBLANK(Customer[Age]),
+count(Customer[Age]),
+AVERAGE(Customer[Age]),
+DIVIDE(SUM(Customer[Age]),COUNT(Customer[Age])),
+DIVIDE(Sum(Customer[Age]),COUNTROWS(Customer))
+
+}
+

@@ -1,0 +1,39 @@
+﻿Define
+VAR _alpha=DATATABLE("name",STRING,{{"a"},{"b"},{"c"}})
+VAR _number=DATATABLE("number",INTEGER,{{1},{2},{3}})
+
+VAR Dates=
+
+		union(
+		
+		ROW("FirstDate",DATE(2017,1,6),"LastDate",DATE(2017,1,3)),
+		ROW("FirstDate",DATE(2017,1,9),"LastDate",DATE(2017,1,12))
+		
+		)
+
+EVALUATE
+Dates
+
+EVALUATE
+
+Generate('dates',
+DATESBETWEEN('Date'[Date],[FirstDate],[LastDate])
+)
+
+
+EVALUATE
+GenerateAll('dates',
+DATESBETWEEN('Date'[Date],[FirstDate],[LastDate])
+)
+
+
+//EVALUATE
+//_alpha
+//
+//EVALUATE
+//_number
+
+
+EVALUATE
+CROSSJOIN(_alpha,_number)
+
