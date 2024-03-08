@@ -1,0 +1,48 @@
+﻿DEFINE
+TABLE Customer_segement=
+DATATABLE(
+"Segment",STRING,
+"Min Sales",INTEGER,
+"Max Sales",Integer,
+{
+{"Silver",0,100},
+{"Gold",100,500},
+{"Platinum",500,2000},
+{"Diamond",2000,999999999}
+}
+)
+//EVALUATE
+//Customer_segement
+
+EVALUATE
+SUMMARIZECOLUMNS(
+Customer_segement[Segment],
+'Date'[Year],
+//Customer[Name],
+//TREATAS({1212939},Customer[CustomerKey]),
+--TREATAS({"Audio"},'Product'[Category]),
+"Seg Customer",
+Countrows(
+Filter(
+Customer,
+VAR _SalesAmount=[Sales Amount]
+VAR SegmentForCustomer=
+Filter(Customer_segement,
+NOT ISBLANK(_SalesAmount) &&
+_SalesAmount>Customer_segement[Min Sales] &&
+_SalesAmount<=Customer_segement[MAX Sales]
+)
+Return 
+NOT ISEMPTY(SegmentForCustomer)
+)
+
+)
+)
+
+
+
+
+
+
+
+

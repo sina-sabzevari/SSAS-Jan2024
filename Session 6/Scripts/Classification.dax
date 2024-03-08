@@ -1,0 +1,35 @@
+﻿ Define 
+ Table ABC =
+ DATATABLE("class",STRING,
+ "Lower",INTEGER,"Upper",INTEGER,
+ {
+ {"A",0,70},
+ {"B",70,90},
+ {"C",90,100}
+ 
+ })
+ 
+EVALUATE
+
+VAR SalesByProduct=
+ADDCOLUMNS(
+'Product',
+"@SalesAmount",
+[Sales Amount])
+
+VAR  Cummlative=
+ADDCOLUMNS(
+SalesByProduct,
+"Rank",
+VAR CurrentSalesAmount=[@Sales Amount]
+VAR CummTable=
+Filter(SalesByProduct,[@SalesAmount]>=CurrentSalesAmount))
+RETURN 
+SUMX(CummTable,[@SalesAmount]
+)
+
+
+
+
+
+//)

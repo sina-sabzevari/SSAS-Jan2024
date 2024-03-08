@@ -1,0 +1,7 @@
+﻿DEFINE
+VAR _number=987867676.123
+
+EVALUATE
+{
+FORMAT(_number,"0,0,,.0000000 میلیون")
+}
