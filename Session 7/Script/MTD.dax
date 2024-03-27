@@ -1,0 +1,14 @@
+﻿EVALUATE
+SUMMARIZECOLUMNS(
+'Date'[Date],
+"Sales Amount MTD",
+VAR _current_date=MAX(DimDateParallel[date])
+VAR _first_day_month=CALCULATE(MAX(DimDateParallel[date_mapping]),DimDateParallel[type]="The first day of month")
+VAR _result=CALCULATE(MROUND(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),10000)
+--,TREATAS(VALUES(Sales[Order Date]),DimDateParallel[date_mapping])
+,DATESBETWEEN('Date'[Date],_first_day_month,_current_date))
+Return _result
+)
+
+ORDER BY [Date]
+
