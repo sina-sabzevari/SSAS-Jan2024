@@ -1,0 +1,8 @@
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\bin\Model.asdatabase
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\bin\Model.deploymenttargets
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\bin\Model.deploymentoptions
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\obj\Development\Session 8.smproj.AssemblyReference.cache
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\obj\Development\Session 8.smproj.CoreCompileInputs.cache
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\obj\Development\Model.asdatabase
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\obj\Development\Model.deploymentoptions
+D:\SSASClassJanuary2024\Files\Session 8\Session 8\Session 8\obj\Development\Model.deploymenttargets

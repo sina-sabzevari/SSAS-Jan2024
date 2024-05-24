@@ -1,0 +1,32 @@
+{
+  "cultures": [
+    {
+  "name": "en-GB",
+  "translations": {
+    "model": {
+      "name": "Model",
+      "tables": [
+        {
+          "name": "Store",
+          "translatedCaption": "فروشگاه",
+          "columns": [
+            {
+              "name": "Name",
+              "translatedCaption": "نام فروشگاه"
+            },
+            {
+              "name": "Country",
+              "translatedCaption": "کشور"
+            },
+            {
+              "name": "State",
+              "translatedCaption": "استان"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+  ]
+}

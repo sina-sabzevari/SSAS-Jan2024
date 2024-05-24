@@ -1,0 +1,13 @@
+{
+  "name": "SSAS2016-2",
+  "compatibilityLevel": 1200,
+  "model": {
+    "culture": "en-GB",
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  }
+}

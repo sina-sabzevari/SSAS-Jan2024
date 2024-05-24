@@ -135,18 +135,93 @@
         ],
         "partitions": [
           {
-            "name": "Partition",
-            "dataView": "full",
+            "name": "Partition2010",
             "source": {
               "type": "m",
               "expression": [
                 "let",
                 "    Source = #\"SQL/ ;Contoso\",",
-                "    dbo_Sales = Source{[Schema=\"dbo\",Item=\"Sales\"]}[Data]",
+                "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2010, 1, 1) and [Order Date] < #date(2011, 1, 1))",
                 "in",
-                "    dbo_Sales"
+                "    #\"Filtered Rows\""
               ]
-            }
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/ ;Contoso\",",
+                  "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                  "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                  "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2010, 1, 1) and [Order Date] < #date(2011, 1, 1))",
+                  "in",
+                  "    #\"Filtered Rows\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Partition2011",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2011, 1, 1) and [Order Date] < #date(2012, 1, 1))",
+                "in",
+                "    #\"Filtered Rows\""
+              ]
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/ ;Contoso\",",
+                  "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                  "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                  "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2011, 1, 1) and [Order Date] < #date(2012, 1, 1))",
+                  "in",
+                  "    #\"Filtered Rows\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Partition2013",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2012, 1, 1) and [Order Date] < #date(2013, 1, 1))",
+                "in",
+                "    #\"Filtered Rows\""
+              ]
+            },
+            "annotations": [
+              {
+                "name": "QueryEditorSerialization",
+                "value": [
+                  "<?xml version=\"1.0\" encoding=\"UTF-16\"?><Gemini xmlns=\"QueryEditorSerialization\"><AnnotationContent><![CDATA[<RSQueryCommandText>let",
+                  "    Source = #\"SQL/ ;Contoso\",",
+                  "    Contoso = Source{[Name=\"Contoso\"]}[Data],",
+                  "    dbo_Sales = Contoso{[Schema=\"dbo\",Item=\"Sales\"]}[Data],",
+                  "    #\"Filtered Rows\" = Table.SelectRows(dbo_Sales, each [Order Date] >= #date(2012, 1, 1) and [Order Date] < #date(2013, 1, 1))",
+                  "in",
+                  "    #\"Filtered Rows\"</RSQueryCommandText><RSQueryCommandType>Text</RSQueryCommandType><RSQueryDesignState></RSQueryDesignState>]]></AnnotationContent></Gemini>"
+                ]
+              }
+            ]
           }
         ],
         "measures": [
@@ -391,6 +466,67 @@
             }
           }
         ]
+      },
+      {
+        "name": "Sales 1",
+        "columns": [
+          {
+            "name": "Delivery Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Delivery Date"
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "sourceColumn": "CustomerKey"
+          },
+          {
+            "name": "StoreKey",
+            "dataType": "int64",
+            "sourceColumn": "StoreKey"
+          },
+          {
+            "name": "Currency Code",
+            "dataType": "string",
+            "sourceColumn": "Currency Code"
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity"
+          },
+          {
+            "name": "Unit Price",
+            "dataType": "decimal",
+            "sourceColumn": "Unit Price"
+          },
+          {
+            "name": "Net Price",
+            "dataType": "decimal",
+            "sourceColumn": "Net Price"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Sales = Source{[Schema=\"dbo\",Item=\"Sales\"]}[Data]",
+                "in",
+                "    dbo_Sales"
+              ]
+            }
+          }
+        ]
       }
     ],
     "relationships": [
@@ -609,6 +745,46 @@
                 "name": "Sales Amount"
               }
             ]
+          }
+        ]
+      }
+    ],
+    "roles": [
+      {
+        "name": "Role"
+      },
+      {
+        "name": "Marketing-Canada",
+        "modelPermission": "read",
+        "members": [
+          {
+            "memberName": "Farnoosh",
+            "memberId": "S-1-5-21-3077242351-2196448990-1428570751-1001"
+          }
+        ],
+        "tablePermissions": [
+          {
+            "name": "Customer",
+            "filterExpression": "Customer[Country]=\"canada\""
+          },
+          {
+            "name": "Sales",
+            "columnPermissions": [
+              {
+                "name": "Delivery Date",
+                "metadataPermission": "none"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Marketing-Customer[Country]",
+        "modelPermission": "read",
+        "tablePermissions": [
+          {
+            "name": "Customer",
+            "filterExpression": "Customer[Country]=\"France\""
           }
         ]
       }

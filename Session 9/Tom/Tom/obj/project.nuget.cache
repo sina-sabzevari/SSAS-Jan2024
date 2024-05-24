@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "sKVciJp0b+Sd5tF/XXSxLv4FS/mJzG3D3mPsY92D2rvUiD4Icfzy6lfe/T9LH6sU8SdgiJX48IBAWnuR+H0fNg==",
+  "success": true,
+  "projectFilePath": "D:\\SSASClassJanuary2024\\Files\\Session 9\\Tom\\Tom\\Tom.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Farnoosh\\.nuget\\packages\\microsoft.analysisservices.adomdclient.netcore.retail.amd64\\19.60.0\\microsoft.analysisservices.adomdclient.netcore.retail.amd64.19.60.0.nupkg.sha512",
+    "C:\\Users\\Farnoosh\\.nuget\\packages\\microsoft.analysisservices.netcore.retail.amd64\\19.60.0\\microsoft.analysisservices.netcore.retail.amd64.19.60.0.nupkg.sha512",
+    "C:\\Users\\Farnoosh\\.nuget\\packages\\microsoft.identity.client\\4.43.0\\microsoft.identity.client.4.43.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,553 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-GB",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/ ;Contoso",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": ".",
+            "database": "Contoso"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "credential": {
+          "AuthenticationKind": "UsernamePassword",
+          "Username": "sa",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "Store",
+        "columns": [
+          {
+            "name": "StoreKey",
+            "dataType": "int64",
+            "sourceColumn": "StoreKey"
+          },
+          {
+            "name": "Name",
+            "dataType": "string",
+            "sourceColumn": "Name"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status"
+          },
+          {
+            "name": "Open Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Open Date"
+          },
+          {
+            "name": "Close Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Close Date"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Store = Source{[Schema=\"dbo\",Item=\"Store\"]}[Data]",
+                "in",
+                "    dbo_Store"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Sales",
+        "columns": [
+          {
+            "name": "Order Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Order Date"
+          },
+          {
+            "name": "Delivery Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Delivery Date"
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "sourceColumn": "CustomerKey"
+          },
+          {
+            "name": "StoreKey",
+            "dataType": "int64",
+            "sourceColumn": "StoreKey"
+          },
+          {
+            "name": "Currency Code",
+            "dataType": "string",
+            "sourceColumn": "Currency Code"
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity"
+          },
+          {
+            "name": "Unit Price",
+            "dataType": "decimal",
+            "sourceColumn": "Unit Price"
+          },
+          {
+            "name": "Net Price",
+            "dataType": "decimal",
+            "sourceColumn": "Net Price"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Sales = Source{[Schema=\"dbo\",Item=\"Sales\"]}[Data]",
+                "in",
+                "    dbo_Sales"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Sales Quantity",
+            "expression": "SUM(Sales[Quantity])"
+          },
+          {
+            "name": "Sales Quantity 2",
+            "expression": "CALCULATE([Sales Quantity],DimDateParallel[type]=\"Default\")"
+          },
+          {
+            "name": "Sales Quantity yesterday",
+            "expression": "CALCULATE([Sales Quantity],DimDateParallel[type]=\"yesterday\")"
+          },
+          {
+            "name": "Sales Amount",
+            "expression": "CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),TREATAS(VALUES(DimDateParallel[date_mapping]),Sales[Order Date]))"
+          },
+          {
+            "name": "Sales Amount Compare",
+            "expression": "CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),TREATAS(VALUES(DimDateParallelCompare[date_mapping]),Sales[Order Date]))"
+          },
+          {
+            "name": "Sales Amount MTD",
+            "expression": [
+              "",
+              "VAR _current_date=MAX(DimDateParallel[date])",
+              "VAR _first_day_month=CALCULATE(MAX(DimDateParallel[date_mapping]),DimDateParallel[type]=\"The first day of month\")",
+              "VAR _result=CALCULATE(SUMX(Sales,Sales[Quantity]*Sales[Unit Price]),TREATAS(VALUES(DimDateParallel[date_mapping]),Sales[Order Date]),DATESBETWEEN('Date'[Date],_first_day_month,_current_date))",
+              "Return _result"
+            ]
+          },
+          {
+            "name": "Measure",
+            "expression": [
+              " ",
+              "SWITCH(TRUE(),",
+              "ISINSCOPE('Date'[Month Number]),",
+              "Var _current_month=MAX('Date'[Month Number])",
+              "VAR _current_year=MAX('Date'[Year])",
+              "Return",
+              "CALCULATE([Sales Amount],'Date'[Month Number]<=_current_month",
+              ",'Date'[Year]=_current_year),",
+              "ISINSCOPE('Date'[Year]),",
+              "VAR _current_year=MAX('Date'[Year])",
+              "Return",
+              "CALCULATE([Sales Amount],'Date'[Year]<=_current_year),\"salam\")",
+              ""
+            ]
+          },
+          {
+            "name": "Sales Amount Dynamic",
+            "expression": [
+              "",
+              "SWITCH(SELECTEDVALUE('CalculatedTable 1'[FilterName],\"Brand\"),",
+              "\"Color\",CALCULATE([Sales Amount],TREATAS(VALUES('CalculatedTable 1'[ColumnName]),'Product'[Color])),",
+              "\"brand\",CALCULATE([Sales Amount],TREATAS(VALUES('CalculatedTable 1'[ColumnName]),'Product'[Brand])))"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Product",
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "sourceColumn": "ProductKey"
+          },
+          {
+            "name": "Product Name",
+            "dataType": "string",
+            "sourceColumn": "Product Name"
+          },
+          {
+            "name": "Brand",
+            "dataType": "string",
+            "sourceColumn": "Brand"
+          },
+          {
+            "name": "Color",
+            "dataType": "string",
+            "sourceColumn": "Color"
+          },
+          {
+            "name": "Unit Cost",
+            "dataType": "decimal",
+            "sourceColumn": "Unit Cost"
+          },
+          {
+            "name": "Unit Price",
+            "dataType": "decimal",
+            "sourceColumn": "Unit Price"
+          },
+          {
+            "name": "Subcategory",
+            "dataType": "string",
+            "sourceColumn": "Subcategory"
+          },
+          {
+            "name": "Category",
+            "dataType": "string",
+            "sourceColumn": "Category"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Product = Source{[Schema=\"dbo\",Item=\"Product\"]}[Data]",
+                "in",
+                "    dbo_Product"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Date",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "Year Month",
+            "dataType": "string",
+            "sourceColumn": "Year Month"
+          },
+          {
+            "name": "Year Month Number",
+            "dataType": "int64",
+            "sourceColumn": "Year Month Number"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "Month Number",
+            "dataType": "int64",
+            "sourceColumn": "Month Number"
+          },
+          {
+            "name": "Day of Week",
+            "dataType": "string",
+            "sourceColumn": "Day of Week"
+          },
+          {
+            "name": "Day of Week Number",
+            "dataType": "int64",
+            "sourceColumn": "Day of Week Number"
+          },
+          {
+            "name": "Working Day",
+            "dataType": "boolean",
+            "sourceColumn": "Working Day"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Date = Source{[Schema=\"dbo\",Item=\"Date\"]}[Data]",
+                "in",
+                "    dbo_Date"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Customer",
+        "columns": [
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "sourceColumn": "CustomerKey"
+          },
+          {
+            "name": "Gender",
+            "dataType": "string",
+            "sourceColumn": "Gender"
+          },
+          {
+            "name": "Name",
+            "dataType": "string",
+            "sourceColumn": "Name"
+          },
+          {
+            "name": "City",
+            "dataType": "string",
+            "sourceColumn": "City"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State"
+          },
+          {
+            "name": "Country Code",
+            "dataType": "string",
+            "sourceColumn": "Country Code"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country"
+          },
+          {
+            "name": "Continent",
+            "dataType": "string",
+            "sourceColumn": "Continent"
+          },
+          {
+            "name": "Age",
+            "dataType": "int64",
+            "sourceColumn": "Age"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_Customer = Source{[Schema=\"dbo\",Item=\"Customer\"]}[Data]",
+                "in",
+                "    dbo_Customer"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDateParallel",
+        "columns": [
+          {
+            "name": "date",
+            "dataType": "dateTime",
+            "sourceColumn": "date"
+          },
+          {
+            "name": "date_mapping",
+            "dataType": "dateTime",
+            "sourceColumn": "date_mapping"
+          },
+          {
+            "name": "type",
+            "dataType": "string",
+            "sourceColumn": "type"
+          },
+          {
+            "name": "persian_type",
+            "dataType": "string",
+            "sourceColumn": "persian_type",
+            "sortByColumn": "ordering"
+          },
+          {
+            "name": "ordering",
+            "dataType": "int64",
+            "sourceColumn": "ordering"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/ ;Contoso\",",
+                "    dbo_DimDateParallel = Source{[Schema=\"dbo\",Item=\"DimDateParallel\"]}[Data]",
+                "in",
+                "    dbo_DimDateParallel"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "CalculatedTable 1",
+        "columns": [
+          {
+            "type": "calculatedTableColumn",
+            "name": "ColumnName",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[ColumnName]"
+          },
+          {
+            "type": "calculatedTableColumn",
+            "name": "FilterName",
+            "dataType": "string",
+            "isNameInferred": true,
+            "isDataTypeInferred": true,
+            "sourceColumn": "[FilterName]"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CalculatedTable 1",
+            "source": {
+              "type": "calculated",
+              "expression": [
+                "SELECTCOLUMNS(",
+                "UNION (",
+                "    ADDCOLUMNS ( VALUES ( 'Product'[Color] ), \"FilterName\", \"Color\" ),",
+                "    ADDCOLUMNS ( VALUES ( 'Product'[Brand] ), \"FilterName\", \"Brand\" )",
+                "),\"ColumnName\",[color],\"FilterName\",[FilterName])"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "b44cfaaf-73e7-4ea4-9f41-510ec33b45eb",
+        "fromTable": "Sales",
+        "fromColumn": "StoreKey",
+        "toTable": "Store",
+        "toColumn": "StoreKey"
+      },
+      {
+        "name": "99a0620b-102b-4f94-9909-2d5dd532cc51",
+        "fromTable": "Sales",
+        "fromColumn": "ProductKey",
+        "toTable": "Product",
+        "toColumn": "ProductKey"
+      },
+      {
+        "name": "61fa4d7a-4ec3-4681-bef7-c3885633435e",
+        "fromTable": "Sales",
+        "fromColumn": "CustomerKey",
+        "toTable": "Customer",
+        "toColumn": "CustomerKey"
+      },
+      {
+        "name": "6b21e044-07d0-45d3-a429-3556edc54f02",
+        "fromTable": "Sales",
+        "fromColumn": "Order Date",
+        "toTable": "Date",
+        "toColumn": "Date"
+      }
+    ],
+    "cultures": [
+      {
+        "name": "en-GB",
+        "translations": {
+          "model": {
+            "name": "Model",
+            "tables": [
+              {
+                "name": "Store",
+                "translatedCaption": "فروشگاه",
+                "columns": [
+                  {
+                    "name": "Name",
+                    "translatedCaption": "نام فروشگاه"
+                  },
+                  {
+                    "name": "Country",
+                    "translatedCaption": "کشور"
+                  },
+                  {
+                    "name": "State",
+                    "translatedCaption": "استان"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "700"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}

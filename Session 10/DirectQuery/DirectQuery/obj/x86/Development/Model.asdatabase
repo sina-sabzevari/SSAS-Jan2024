@@ -1,0 +1,13 @@
+{
+  "name": "DirectQuery",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-GB",
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "700"
+      }
+    ]
+  }
+}
